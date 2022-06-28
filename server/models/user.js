@@ -4,6 +4,7 @@ import joi from "joi";
 import passwordComplexity from "joi-password-complexity";
 
 const userSchema = new mongoose.Schema({
+    user_id: {type: String},
     username: {type: String, required:true},
     password: {type: String, required:true},
     email: {type: String, required:true},
