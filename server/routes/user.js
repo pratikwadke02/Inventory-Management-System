@@ -1,12 +1,13 @@
 import express from "express";
-import { valid } from "joi";
-import {User, validate} from "../models/user.js"
-import bcrypt from "bcrypt";
+import User from "../models/user.js";
+import validate from "../models/user.js";
+import bcrypt from "bcryptjs";
 
 const router = express.Router();
 const SALT = 10
 
-router.post("/", async(req, res)=> {
+router.post("/signup", async(req, res)=> {
+    console.log("hello")
     try{
         const {error} = validate(req.body);
         if(error){
@@ -22,8 +23,9 @@ router.post("/", async(req, res)=> {
 		await new User({ ...req.body, password: hashPassword }).save();
 		res.status(201).send({ message: "User created successfully" });
     }catch(error){
+        console.log(error);
         res.status(500).send({ message: "Internal Server Error" });
     }
 })
 
-module.exports = router;
+export default router;
