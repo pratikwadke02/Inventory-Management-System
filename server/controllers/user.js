@@ -56,3 +56,13 @@ export const signin = async (req, res) => {
     }    
 }
 
+export const profile = async (req, res) => {
+    try{
+        const user = await User.findById(req.user._id).select("-password");
+        console.log("data retreived");
+        res.status(200).send({data: user});
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message: "Internal Server Error"});
+    }
+} 
