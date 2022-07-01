@@ -21,7 +21,7 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const url = "http://localhost:5000/api/user/signup";
+            const url = "http://localhost:5000/api/auth/signup";
             const {data: res} = await axios.post(url, data);
             navigate("/login");
             console.log(res.message);

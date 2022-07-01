@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-import userRoutes from "./routes/user.js";
 import authRoutes from "./routes/auth.js";
 
 const app = express();
@@ -11,8 +10,7 @@ app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
-app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
+app.use('/api/auth', authRoutes);
 
 const username = "pratikwadke"
 const password = "pratik02"
