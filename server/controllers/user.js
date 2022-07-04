@@ -34,7 +34,7 @@ export const signup = async (req, res) => {
 }
 
 export const signin = async (req, res) => {
-    console.log("hello");
+    // console.log("hello");
     try{
         const{error} = logInValidate(req.body);
         if(error){

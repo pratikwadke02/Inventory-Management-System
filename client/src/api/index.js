@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'http://localhost:5000/api',
 });
 
 API.interceptors.request.use((req) => {
@@ -11,11 +11,15 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const signIn = (data) => { 
-    return API.post('/auth/signin', data);
+			const url = "http://localhost:5000/api/auth/signin";
+			// const { data: res } = await axios.post(url, data);
+
+export const signIn = (userData) => { 
+    return API.post('/auth/signin', userData);
+    // return axios.post(signInURL, userData);
 }
 
-export const signUp = (data) => {
-    return API.post('/auth/signup', data);
+export const signUp = (userData) => {
+    return API.post('/auth/signup', userData);
 }
 

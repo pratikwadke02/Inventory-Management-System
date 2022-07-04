@@ -7,13 +7,13 @@ function Profile() {
     const [data, setData] = useState();
     const [error, setError] = useState("");
 
-    const loadUser = async (dispatch) => {
-        try {
+    const getUserData = async () => {
+        try{
             const url = "http://localhost:5000/api/auth/profile";
-            const data = await axios.get(url);
-            setData(data.data);
-        }
-        catch (error) {
+            const {data: res} = await axios.get(url);
+            setData(res);
+            console.log(res);
+        }catch(error){
             console.log(error);
         }
     }

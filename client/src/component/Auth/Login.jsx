@@ -1,10 +1,18 @@
 import React from 'react'
 import {useState} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import "../Auth/Login.css";
+import {useDispatch} from 'react-redux'
+import {signIn} from '../../actions/auth'
+
+const {initialState} = {email: '', password: ''}
+
 
 function Login() {
+    const dispatch = useDispatch();
+    const history = useNavigate();
+    const [login, setIsLogin] = useState(false);
 
     const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
@@ -16,18 +24,22 @@ function Login() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:5000/api/auth/signin";
-			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			// const url = "http://localhost:5000/api/auth/signin";
+			// const { data: res } = await axios.post(url, data);
+			// localStorage.setItem("token", res.data);
+			
+            console.log(data);
+            dispatch(signIn(data, history));
+            // window.location = "/";
 		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
+			// if (
+			// 	error.response &&
+			// 	error.response.status >= 400 &&
+			// 	error.response.status <= 500
+			// ) {
+			// 	setError(error.response.data.message);
+			// }
+            console.log(error);
 		}
 	};
 
