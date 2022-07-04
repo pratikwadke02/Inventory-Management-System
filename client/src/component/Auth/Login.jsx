@@ -12,7 +12,6 @@ const {initialState} = {email: '', password: ''}
 function Login() {
     const dispatch = useDispatch();
     const history = useNavigate();
-    const [login, setIsLogin] = useState(false);
 
     const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
@@ -24,22 +23,11 @@ function Login() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			// const url = "http://localhost:5000/api/auth/signin";
-			// const { data: res } = await axios.post(url, data);
-			// localStorage.setItem("token", res.data);
-			
             console.log(data);
             dispatch(signIn(data, history));
-            // window.location = "/";
 		} catch (error) {
-			// if (
-			// 	error.response &&
-			// 	error.response.status >= 400 &&
-			// 	error.response.status <= 500
-			// ) {
-			// 	setError(error.response.data.message);
-			// }
             console.log(error);
+            setError(error);
 		}
 	};
 

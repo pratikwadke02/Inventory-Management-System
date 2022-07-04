@@ -10,15 +10,14 @@ export const signIn = (userData, router) => async(dispatch) => {
         dispatch({type: AUTH, data});
         // console.log("hello2");
         router('/');
-        // window.location='/';
     }catch(error){
         console.log(error);
     }
 };
 
-export const SignUp = (data, router) => async(dispatch) => {
+export const SignUp = (userData, router) => async(dispatch) => {
     try{
-        const {data} = await api.signUp(data);
+        const {data} = await api.signUp(userData);
         dispatch({type: AUTH, data});
         router('/');
     }catch(error){

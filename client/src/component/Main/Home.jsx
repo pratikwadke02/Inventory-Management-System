@@ -1,12 +1,31 @@
 import React from 'react';
 import "../Main/Home.css";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate, useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import * as actionType from '../../constants/actionTypes';
+import {useState, useEffect} from 'react';
+import decode from 'jwt-decode';
 
 function Home() {
-    const handleLogout = () => {
-		localStorage.removeItem("token");
-		window.location.reload();
-	};
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    useEffect(() => {
+      const token=user?.token;
+      if(token){
+        const decodedToken = decode(token);
+        if(decodedToken.exp*1000 < new Date.getTime()) logout();
+        }
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location]);
+
+    const logout=()=> {
+      dispatch({type:'LOGOUT'});
+      navigate('/login');
+      setUser(null);
+    }
 
     
   return (
@@ -17,7 +36,7 @@ function Home() {
             <Link to='/profile' >
             <button className='white_btn'>Profile</button>
             </Link>
-            <button className="white_btn" onClick={handleLogout}>
+            <button className="white_btn" onClick={logout}>
                 Logout
             </button>
         </nav>

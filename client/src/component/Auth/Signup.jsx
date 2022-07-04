@@ -3,6 +3,16 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import "../Auth/Signup.css";
+import { useDispatch } from 'react-redux';
+import { SignUp } from '../../actions/auth';
+
+const initialState = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+}
+
 function Signup() {
 
     const [data, setData] = useState({
@@ -12,6 +22,7 @@ function Signup() {
         confirmPassword: ""
     })
     const [error, setError] = useState("");
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleChange = ({currentTarget: input}) => {
@@ -21,18 +32,11 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const url = "http://localhost:5000/api/auth/signup";
-            const {data: res} = await axios.post(url, data);
-            navigate("/login");
-            console.log(res.message);
+            console.log(data);
+            dispatch(SignUp(data, navigate));
+            
         }catch(error){
-            if(
-                error.respone &&
-                error.response.data &&
-                error.response.data.message
-            ){
-                setError(error.response.data.message);
-            }
+            console.log(error);
         }
     };
 
