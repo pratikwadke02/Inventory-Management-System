@@ -67,3 +67,18 @@ export const getProfile = async (req, res) => {
         res.status(500).send({message: "Internal Server Error"});
     }
 } 
+
+export const updateProfile = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const user = await User.findById(id);
+        // console.log(user);
+        const salt = await bcrypt.genSalt(Number(SALT));
+        const hashPassword = await bcrypt.hash(req.body.password, salt);
+        await User.findByIdAndUpdate(id, {...req.body, password: hashPassword});
+        res.status(200).send({message: "User updated successfully"});
+    }catch(error){
+        console.log(error);
+        res.status(500).send({message: "Internal Server Error"});
+    }
+}

@@ -1,4 +1,4 @@
-import {AUTH, GET_PROFILE} from '../constants/actionTypes';
+import {AUTH, GET_PROFILE, UPDATE_PROFILE} from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -25,10 +25,21 @@ export const SignUp = (userData, router) => async(dispatch) => {
     }
 }
 
-export const getProfile = (userId) => async (dispatch) => {
+export const getProfile = () => async (dispatch) => {
     try{
-        const data = await api.getProfile(userId);
+        const data = await api.getProfile();
+        // console.log(data);
         dispatch({type: GET_PROFILE, data});
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const UpdateProfile = (userData, router) => async (dispatch) => {
+    try{
+        const {data} = await api.updateProfile(userData);
+        dispatch({type: UPDATE_PROFILE, data});
+        router('/');
     }catch(error){
         console.log(error);
     }
