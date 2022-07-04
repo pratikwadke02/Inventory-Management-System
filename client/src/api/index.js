@@ -23,3 +23,7 @@ export const signUp = (userData) => {
     return API.post('/auth/signup', userData);
 }
 
+export const getProfile = (userId) => {
+    return API.get('/auth/profile', userId)
+}
+

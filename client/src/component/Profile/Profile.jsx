@@ -1,34 +1,50 @@
 import React from 'react'
-import axios from 'axios'
 import { useState } from 'react'
+import { useEffect } from 'react';
+import {getProfile} from '../../actions/auth'
+import {useParams} from 'react-router-dom'
+import axios from 'axios';
+
 
 function Profile() {
 
-    const [data, setData] = useState();
-    const [error, setError] = useState("");
+    const id = JSON.parse(localStorage.getItem('profile')).data.data;
 
-    const getUserData = async () => {
-        try{
-            const url = "http://localhost:5000/api/auth/profile";
-            const {data: res} = await axios.get(url);
-            setData(res);
-            console.log(res);
-        }catch(error){
-            console.log(error);
+    // const {id} = useParams();
+
+    // useEffect(()=> {
+    //     getProfile(id);
+    // }, [getProfile, id])
+
+    const [userInfo, setUserInfo] = useState(
+        {
+            username: "",
+            email: "",
         }
-    }
+    );
+    
+    useEffect(()=> {
+        const getUserData = async () => {
+            try{
+                console.log(id);
+                const {data} = await axios.get(`http://localhost:5000/api/auth/profile/${id}`);
+                console.log(data);
+                setUserInfo({username: data.userData.username, email: data.userData.email});
+            }catch(error){
+                console.log(error);
+                
+            }
+        }
+        getUserData();
+    }, [])
 
-
+    
   return (
     <>
     <div className="container">
         <h1>Profile</h1>
-        <div className="profile_container">
-            <div className="left">
-                <h2>{data.username}</h2>
-                <p>{data.email}</p>
-            </div>
-        </div>
+        <h2>{userInfo.username}</h2>
+        <p>{userInfo.email}</p>
     </div>
     </>
   )
