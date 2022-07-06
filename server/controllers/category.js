@@ -1,6 +1,7 @@
 import Category from '../models/category.js';
 
 export const addCategory = async(req, res) => {
+    console.log("Hello");
     try{
         const category = await Category.findOne({name: req.body.name});
         if(category){

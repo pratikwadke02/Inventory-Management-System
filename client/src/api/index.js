@@ -5,7 +5,7 @@ const API = axios.create({
 });
 
 const userId = JSON.parse(localStorage.getItem('profile')).data.data;
-console.log(userId);
+// console.log(userId);
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
@@ -32,4 +32,8 @@ export const getProfile = () => {
 
 export const updateProfile = (userData) => {
     return API.post(`/auth/updateprofile/${userId}`, userData);
+}
+
+export const addCategory = (category) => {
+    return API.post('/category/add_category', category);
 }

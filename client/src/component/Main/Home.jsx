@@ -28,21 +28,9 @@ function Home() {
       setUser(null);
     }
 
-    // const dispatch = useDispatch();
-
     useEffect(()=> {
         const getUserData = async () => {
-            // try{
-            //     // console.log(id);
-            //     const {data} = await axios.get(`http://localhost:5000/api/auth/profile/${id}`);
-            //     // console.log(data);
-            //     setUserInfo({username: data.userData.username, email: data.userData.email});
-            // }catch(error){
-            //     console.log(error);
-                
-            // }
             try{
-                // setUserInfo(dispatch(getProfile()));  
                 dispatch(getProfile());
             }catch(error){
                 console.log(error);
@@ -66,6 +54,16 @@ function Home() {
                 Logout
             </button>
         </nav>
+        <div className="container">
+            <div className="sidebar">
+                <Link to='/add_category'>
+                    <button className="green_btn">Add a Category</button>
+                </Link>
+                <Link to='add_product'>
+                    <button className="green_btn">Add a Product</button>
+                </Link>
+            </div>
+        </div>
     </div>
     </>
   )
