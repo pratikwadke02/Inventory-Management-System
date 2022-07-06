@@ -13,3 +13,13 @@ export const addProduct = async(req, res) => {
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
+
+export const getProducts = async(req, res) => {
+    try{
+        const products = await Products.find({});
+        res.status(200).send(products);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}

@@ -41,3 +41,11 @@ export const addCategory = (category) => {
 export const getCategories = () => {
     return API.get('/category/get_categories');
 }
+
+export const addProduct = (product) => {
+    return API.post('/product/add_product', product);
+}
+
+export const getProducts = () => {
+    return API.get('/product/get_products');
+}
