@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { addCategory } from '../../actions/category'
+import Category from './Category'
 
 function AddCategory() {
 
@@ -47,6 +48,7 @@ function AddCategory() {
         <div className="signup_form_container">
             <div className="left">
                 <h2>Categories</h2>
+                <Category />
             </div>
             <div className="right">
                 <form onSubmit={handleSubmit} className="form_container">

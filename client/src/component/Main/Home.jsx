@@ -6,6 +6,7 @@ import * as actionType from '../../constants/actionTypes';
 import {useState, useEffect} from 'react';
 import decode from 'jwt-decode';
 import {getProfile} from '../../actions/auth';
+import { getCategories } from '../../actions/category';
 
 function Home() {
     const dispatch = useDispatch();
@@ -37,6 +38,17 @@ function Home() {
             }
         }
         getUserData();
+    }, [dispatch]);
+
+    useEffect(()=> {
+        const getCategoriesData = async () => {
+            try{
+                dispatch(getCategories());
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getCategoriesData();
     }, [dispatch]);
     
   return (

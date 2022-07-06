@@ -37,3 +37,7 @@ export const updateProfile = (userData) => {
 export const addCategory = (category) => {
     return API.post('/category/add_category', category);
 }
+
+export const getCategories = () => {
+    return API.get('/category/get_categories');
+}

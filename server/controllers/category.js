@@ -1,7 +1,6 @@
 import Category from '../models/category.js';
 
 export const addCategory = async(req, res) => {
-    console.log("Hello");
     try{
         const category = await Category.findOne({name: req.body.name});
         if(category){
@@ -9,6 +8,17 @@ export const addCategory = async(req, res) => {
         }
         await new Category ({ ...req.body }).save();
         res.status(201).send({ message: "Category created successfully" });
+    }catch(error){
+        console.log(error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}
+
+export const getCategories = async(req, res) => {
+    try{
+        const data = await Category.find({});
+        // console.log(categories);
+        res.status(200).send({categories: data});
     }catch(error){
         console.log(error);
         res.status(500).send({ message: "Internal Server Error" });
