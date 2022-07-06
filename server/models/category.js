@@ -3,12 +3,11 @@ import mongoose from "mongoose";
 const categorySchema = mongoose.Schema({
     category_id:{type: String},
     name: {type:String},
-    product_id:{
+    products:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
         required: true,
     }
-
 });
 
 export default mongoose.model("Category", categorySchema); 

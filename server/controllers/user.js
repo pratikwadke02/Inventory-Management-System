@@ -49,7 +49,7 @@ export const signin = async (req, res) => {
             return res.status(401).send({message: "Invalid email or password"});
         }
         const token = user.generateAuthToken();
-        res.status(200).send({data: user.id, message: "User logged in successfully"});
+        res.status(200).send({data: user.id});
     }catch(error){
         console.log(error);
         res.status(500).send({message: "Internal Server Error"});
@@ -60,7 +60,7 @@ export const getProfile = async (req, res) => {
     try{
         const {id} = req.params;
         const user = await User.findById(id);
-        console.log(user);
+        // console.log(user);
         res.status(200).send({userData: user});
     }catch(error){
         console.log(error);

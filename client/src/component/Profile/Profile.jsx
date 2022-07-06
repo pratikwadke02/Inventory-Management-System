@@ -5,13 +5,10 @@ import {getProfile} from '../../actions/auth'
 import {useParams} from 'react-router-dom'
 import axios from 'axios';
 import {Link} from 'react-router-dom'
-import { connect, useDispatch } from 'react-redux';
-import {useNavigate} from 'react-router-dom'
-
+import { connect, useDispatch, useSelector } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 function Profile() {
-
-    const id = JSON.parse(localStorage.getItem('profile')).data.data;
 
     const [userInfo, setUserInfo] = useState(
         {
@@ -22,26 +19,11 @@ function Profile() {
     
     const dispatch = useDispatch();
 
-    useEffect(()=> {
-        const getUserData = async () => {
-            try{
-                // console.log(id);
-                const {data} = await axios.get(`http://localhost:5000/api/auth/profile/${id}`);
-                // console.log(data);
-                setUserInfo({username: data.userData.username, email: data.userData.email});
-            }catch(error){
-                console.log(error);
-                
-            }
-            // try{
-            //     // setUserInfo(dispatch(getProfile()));  
-            //     // console.log(dispatch(getProfile()));
-            // }catch(error){
-            //     console.log(error);
-            // }
-        }
-        getUserData();
-    }, []);
+    const ProfileData = (useSelector(state => state.profile)).profileData.userData;
+    console.log(ProfileData);
+
+
+    
 
     const navigate = useNavigate();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -51,7 +33,6 @@ function Profile() {
         navigate('/login');
         setUser(null);
       }
-
      
   return (
     <>
@@ -63,13 +44,12 @@ function Profile() {
             <button className="white_btn" onClick={logout}>
                 Logout
             </button>
-            <Link to='/edit_profile'>
-                <button className='white_btn'>Edit Profile</button>
-            </Link>
         </nav>
     <div className="container">
-        <h1>Name: {userInfo.username}</h1>
-        <h1>Email: {userInfo.email}</h1>
+        {/* <h1>Name: {ProfileData.profileData.userData.username}</h1>
+        <h1>Email: {ProfileData.profileData.userData.email}</h1> */}
+        <h1>Name: {ProfileData.username}</h1>
+        <h1>Email: {ProfileData.email}</h1>
     </div>
     </>
   )

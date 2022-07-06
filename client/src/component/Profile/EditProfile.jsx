@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
@@ -35,20 +35,8 @@ const handleSubmit = async (e) => {
     }
 };
 
-
-const id = JSON.parse(localStorage.getItem('profile')).data.data;
-
-useEffect(()=> {
-    const getUserData = async () => {
-        try{
-            const {data} = await axios.get(`http://localhost:5000/api/auth/profile/${id}`);
-            setNewData({username: data.userData.username, email: data.userData.email});
-        }catch(error){
-            console.log(error);
-        }
-    }
-    getUserData();
-}, []);
+const ProfileData = (useSelector(state => state.profile)).profileData.userData;
+console.log(ProfileData);
 
 
   return (
@@ -69,7 +57,7 @@ useEffect(()=> {
                 <form onSubmit={handleSubmit} className="form_container">
                     <input 
                         type="text"
-                        placeholder="Username"
+                        placeholder={ProfileData.username}
                         name="username"
                         onChange={handleChange}
                         value={newdata.username}
@@ -78,7 +66,7 @@ useEffect(()=> {
                     />
                     <input
                         type="email"
-                        placeholder='Email'
+                        placeholder= {ProfileData.email}
                         name="email"
                         onChange={handleChange}
                         value={newdata.email}

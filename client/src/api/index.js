@@ -5,6 +5,7 @@ const API = axios.create({
 });
 
 const userId = JSON.parse(localStorage.getItem('profile')).data.data;
+console.log(userId);
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {

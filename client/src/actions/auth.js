@@ -27,9 +27,12 @@ export const SignUp = (userData, router) => async(dispatch) => {
 
 export const getProfile = () => async (dispatch) => {
     try{
-        const data = await api.getProfile();
+        const {data} = await api.getProfile();
         // console.log(data);
-        dispatch({type: GET_PROFILE, data});
+        dispatch({
+            type: GET_PROFILE,
+            payload: data
+            });
     }catch(error){
         console.log(error);
     }
