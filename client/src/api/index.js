@@ -49,3 +49,7 @@ export const addProduct = (product) => {
 export const getProducts = () => {
     return API.get('/product/get_products');
 }
+
+export const deleteProduct = (id) => {
+    return API.delete(`/product/delete_product/${id}`);
+}

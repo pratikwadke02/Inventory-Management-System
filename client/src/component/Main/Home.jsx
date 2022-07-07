@@ -63,8 +63,6 @@ function Home() {
         }
         getProductsData();
     }, [dispatch]);
-
-    const productData = (useSelector(state => state.product)).products;
     
   return (
     <>
@@ -92,19 +90,6 @@ function Home() {
             </div>
         </div>
         <div className="products_container">
-            {productData && productData.map((product, index) => {
-                return (
-                    <div className="product" key={index}>
-                        <div className="product_info">
-                            <h2>{product.name}</h2>
-                            <p>{product.price}</p>
-                            <p>{product.stock}</p>
-                        </div>
-                    </div>
-                )
-            }
-            )
-            }
         </div>
     </div>
     </>

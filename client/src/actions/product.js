@@ -1,4 +1,4 @@
-import { ADD_PRODUCT , GET_PRODUCTS} from "../constants/actionTypes";
+import { ADD_PRODUCT , GET_PRODUCTS, DELETE_PRODUCT} from "../constants/actionTypes";
 import * as api from "../api/index";
 
 export const addProduct = (productData, router) => async (dispatch) => {
@@ -17,5 +17,15 @@ export const getProducts = () => async (dispatch) => {
         dispatch({ type: GET_PRODUCTS, payload: data });
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const deleteProduct = (id, router) => async (dispatch) => {
+    try{
+        await api.deleteProduct(id);
+        dispatch({ type: DELETE_PRODUCT, id });
+        router("/add_product");
+    }catch(error){
+        console.log(error)
     }
 }

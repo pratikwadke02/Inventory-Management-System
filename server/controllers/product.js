@@ -1,6 +1,7 @@
 import Products from '../models/product.js';
 import Category from '../models/category.js';
 
+
 export const addProduct = async(req, res) => {
     try{
         const product = await Products.findOne({name: req.body.name});
@@ -24,6 +25,16 @@ export const getProducts = async(req, res) => {
     try{
         const products = await Products.find({});
         res.status(200).send(products);
+    }catch(error){
+        console.log(error);
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}
+
+export const deleteProduct = async(req, res) => {
+    try{
+        await Products.findByIdAndDelete(req.params.id);
+        res.status(200).send({ message: "Product deleted successfully" });
     }catch(error){
         console.log(error);
         res.status(500).send({ message: "Internal Server Error" });

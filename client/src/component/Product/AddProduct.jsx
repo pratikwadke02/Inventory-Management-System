@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import { addProduct } from '../../actions/product'
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
+import Product from './Product'
 
 function AddProduct() {
 
@@ -53,7 +54,8 @@ function AddProduct() {
     <div className="signup_container">
         <div className="signup_form_container">
             <div className="left">
-                <h2>Add new Products</h2>
+              <h2>Products</h2>
+              <Product />
             </div>
             <div className="right">
                 <form onSubmit={handleSubmit} className="form_container">
