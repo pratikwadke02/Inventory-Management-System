@@ -7,6 +7,8 @@ import {useState, useEffect} from 'react';
 import decode from 'jwt-decode';
 import {getProfile} from '../../actions/auth';
 import { getCategories } from '../../actions/category';
+import {getProducts} from '../../actions/product';
+import {useSelector} from 'react-redux';
 
 function Home() {
     const dispatch = useDispatch();
@@ -50,6 +52,19 @@ function Home() {
         }
         getCategoriesData();
     }, [dispatch]);
+
+    useEffect(()=> {
+        const getProductsData = async () => {
+            try{
+                dispatch(getProducts());
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getProductsData();
+    }, [dispatch]);
+
+    const productData = (useSelector(state => state.product)).products;
     
   return (
     <>
@@ -75,6 +90,21 @@ function Home() {
                     <button className="green_btn">Add a Product</button>
                 </Link>
             </div>
+        </div>
+        <div className="products_container">
+            {productData && productData.map((product, index) => {
+                return (
+                    <div className="product" key={index}>
+                        <div className="product_info">
+                            <h2>{product.name}</h2>
+                            <p>{product.price}</p>
+                            <p>{product.stock}</p>
+                        </div>
+                    </div>
+                )
+            }
+            )
+            }
         </div>
     </div>
     </>

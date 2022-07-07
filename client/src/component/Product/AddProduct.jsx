@@ -1,6 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {useState} from 'react'
+import {useSelector} from 'react-redux'
+import { addProduct } from '../../actions/product'
+import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 function AddProduct() {
 
@@ -20,15 +24,22 @@ function AddProduct() {
     })
   }
 
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-
+      console.log(productData);
+      dispatch(addProduct(productData, navigate));
     }catch(error){
       console.log(error);
       setError(error.message);
     }
   }
+
+  const categoriesData = (useSelector(state => state.category)).categories.categories;
 
   return (
     <>
@@ -76,10 +87,13 @@ function AddProduct() {
                     {/* dropdown os categories */}
                     <select name="category" onChange={handleChange} value={productData.category} className='input'>
                         <option value="">Select Category</option>
-                        <option value="Shoes">Shoes</option>
-                        <option value="Accessories">Accssories</option>
-                        <option value="Pants">Pants</option>
-                        <option value="Shirts">Shirts</option>
+                        {categoriesData.map((category, index) => {
+                          return (
+                            <option key={index} value={category.name}>{category.name}</option>
+                          )
+                        }
+                        )
+                        }
                       </select>
                     {error && <div className='error_msg'>
                         {error}</div>}

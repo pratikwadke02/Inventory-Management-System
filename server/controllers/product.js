@@ -1,4 +1,5 @@
 import Products from '../models/product.js';
+import Category from '../models/category.js';
 
 export const addProduct = async(req, res) => {
     try{
@@ -6,7 +7,12 @@ export const addProduct = async(req, res) => {
         if(product){
             return res.status(409).send({message: "Product with given name already exists"});
         }
-        await new Products({ ...req.body }).save();
+        await new Products({ ...req.body }).save().then(async(product) =>  {
+            await Category.findOneAndUpdate({name: req.body.category}, {$push: {products: product.id}});
+            const category = await Category.findOne({name: req.body.category}).populate('products');
+            console.log(category);
+            }
+        )
         res.status(201).send({ message: "Product created successfully" });
     }catch(error){
         console.log(error);
