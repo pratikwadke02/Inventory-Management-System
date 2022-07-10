@@ -33,7 +33,15 @@ export const getProducts = async(req, res) => {
 
 export const deleteProduct = async(req, res) => {
     try{
-        await Products.findByIdAndDelete(req.params.id);
+        console.log(req.params.id);
+        const {id} = req.params;
+        //check if product exists
+        if(!await Products.findById(id)){
+            return res.status(404).send({message: "Product not found"});
+        }
+        //remove product
+        await Products.findByIdAndRemove(id);
+        await Category.findOneAndUpdate({products: id}, {$pull: {products: id}});
         res.status(200).send({ message: "Product deleted successfully" });
     }catch(error){
         console.log(error);

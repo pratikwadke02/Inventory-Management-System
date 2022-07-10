@@ -3,17 +3,19 @@ import { useSelector } from 'react-redux';
 import {useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteProduct } from '../../actions/product';
+import {useState} from 'react';
 
 function Product() {
   
   const productData = (useSelector(state => state.product)).products;
-  console.log(productData);
+  const [products, setProducts] = useState(productData);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleDeleteProduct = async (id) => {
     try{
+      setProducts(products.filter(product => product._id !== id));
       dispatch(deleteProduct(id, navigate));
     }catch(error){
       console.log(error);
@@ -34,7 +36,7 @@ function Product() {
         <th>Stock</th>
         <th>Action</th>
       </thead>
-      {productData.map((product, index ) => (
+      {products.map((product, index ) => (
         <tr key={index}>
           <td>{product.name}</td>
           <td>{product.price}</td>
