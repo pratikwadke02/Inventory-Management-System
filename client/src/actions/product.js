@@ -30,3 +30,13 @@ export const deleteProduct = (id, router) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const updateProduct = (productData, router) => async (dispatch) => {
+    try {
+        const { product } = await api.updateProduct(productData);
+        dispatch({ type: ADD_PRODUCT, product });
+        router("/");
+    } catch (error) {
+        console.log(error);
+    }
+}

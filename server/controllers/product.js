@@ -48,3 +48,18 @@ export const deleteProduct = async(req, res) => {
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
+
+export const updateProduct = async(req, res) => {
+    try{
+        const {id} = req.params;
+        const product = await Products.findById(id);
+        if(!product){
+            return res.status(404).send({message: "Product not found"});
+        }
+        await Products.findByIdAndUpdate(id, {...req.body});
+        res.status(200).send({ message: "Product updated successfully" });
+    }catch(error){
+        console.log(error)
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}

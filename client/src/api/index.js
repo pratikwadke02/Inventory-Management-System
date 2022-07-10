@@ -53,3 +53,11 @@ export const getProducts = () => {
 export const deleteProduct = (id) => {
     return API.delete(`/product/delete_product/${id}`);
 }
+
+export const updateProduct = (product) => {
+    return API.post('/product/update_product', product);
+}
+
+export const deleteCategory = (id) => {
+    return API.delete(`/category/delete_category/${id}`);
+}

@@ -13,6 +13,7 @@ import Profile from "./component/Profile/Profile";
 import EditProfile from "./component/Profile/EditProfile";
 import AddProduct from "./component/Product/AddProduct";
 import AddCategory from "./component/Category/AddCategory";
+import UpdateProduct from "./component/Product/UpdateProduct";
 
 
 
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/edit_profile" element={<EditProfile />} />
             <Route path="/add_product" element={<AddProduct />} />
             <Route path="/add_category" element={<AddCategory />} />
+            <Route path="/update_product" element={<UpdateProduct />} />
         </Routes>
         </>
     );

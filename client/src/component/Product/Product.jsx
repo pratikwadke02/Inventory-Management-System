@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import {useDispatch} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct } from '../../actions/product';
 import {useState} from 'react';
 
@@ -42,7 +42,9 @@ function Product() {
           <td>{product.price}</td>
           <td>{product.stock}</td>
           <td>
-            <button onClick={() => handleEditProduct(product._id)}>Edit</button>
+            <Link to="/update_product">
+              <button>Edit</button>
+            </Link>
             <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
           </td>
         </tr>

@@ -7,6 +7,8 @@ const categoryReducer = (state = {categories: null}, action) => {
         case actionTypes.GET_CATEGORIES:
             // console.log(action.payload);
             return {...state, categories: action.payload};
+        case actionTypes.DELETE_CATEGORY:
+            return {...state, categories: state.categories.filter(category => category.id !== action.payload.id)};
         default:
             return state;
     }
